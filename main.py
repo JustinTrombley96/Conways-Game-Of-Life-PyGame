@@ -25,7 +25,7 @@ def get_events():
 def update():
     game_window.update()
     for button in buttons:
-        button.update(mouse_pos)
+        button.update(mouse_pos, game_state=state)
 
 def draw():
     window.fill(background)
@@ -51,7 +51,7 @@ def running_get_events():
 def running_update():
     game_window.update()
     for button in buttons:
-        button.update(mouse_pos)
+        button.update(mouse_pos, game_state=state)
 
 def running_draw():
     window.fill(background)
@@ -78,7 +78,7 @@ def paused_get_events():
 def paused_update():
     game_window.update()
     for button in buttons:
-        button.update(mouse_pos)
+        button.update(mouse_pos, game_state=state)
 
 def paused_draw():
     window.fill(background)
@@ -104,9 +104,10 @@ def click_cell(pos):
 
 def make_buttons():
     buttons = []
-    buttons.append(Button(window, width//5-50, 50, 100, 30, text='Run', color=(100,50,200), hover_color=(20,140,10), bold_text=True, function=run_game ))
-    buttons.append(Button(window, width//2-30, 50, 100, 30, text='Pause', color=(20,20,200), hover_color=(20,140,10), bold_text=True, function=pause_game ))
-    buttons.append(Button(window, width//1.2-50, 50, 100, 30, text='Reset', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=reset_grid ))
+    buttons.append(Button(window, width//2-50, 50, 100, 30, text='Run', color=(100,50,200), hover_color=(20,140,10), bold_text=True, function=run_game, state='setting' ))
+    buttons.append(Button(window, width//2-50, 50, 100, 30, text='Pause', color=(20,20,200), hover_color=(20,140,10), bold_text=True, function=pause_game, state='running' ))
+    buttons.append(Button(window, width//4-50, 50, 100, 30, text='Reset', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=reset_grid, state='paused' ))
+    buttons.append(Button(window, width//1.25-50, 50, 100, 30, text='Resume', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=run_game, state='paused' ))
 
     return buttons
 
@@ -119,7 +120,9 @@ def pause_game():
     state = 'paused'
 
 def reset_grid():
-    pass
+    global state 
+    state = 'setting'
+    game_window.reset_grid()
 
 pygame.init()
 window = pygame.display.set_mode((width, height))

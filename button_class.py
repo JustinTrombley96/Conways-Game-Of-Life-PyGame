@@ -27,25 +27,35 @@ class Button:
         self.text_color = text_color
         self.bold_text = bold_text
         self.hovered = False
+        self.showing = True
 
-    def update(self, pos):
+    def update(self, pos, game_state=''):
         if self.mouse_hovering(pos):
             self.hovered = True
         else:
             self.hovered = False
+        if self.state == '' or game_state == '':
+            self.showing = True
+        else:
+            if self.state == game_state:
+                self.showing = True
+            else:
+                self.showing = False
+
     
     def draw(self):
-        if self.border:
-            self.image.fill(self.border_color)
-            if self.hovered:
-                pygame.draw.rect(self.image, self.hover_color, (self.border_width, self.border_width, self.width-(self.border_width*2), self.height-(self.border_width*2)))
+        if self.showing:
+            if self.border:
+                self.image.fill(self.border_color)
+                if self.hovered:
+                    pygame.draw.rect(self.image, self.hover_color, (self.border_width, self.border_width, self.width-(self.border_width*2), self.height-(self.border_width*2)))
+                else:
+                    pygame.draw.rect(self.image, self.color, (self.border_width, self.border_width, self.width-(self.border_width*2), self.height-(self.border_width*2)))
             else:
-                pygame.draw.rect(self.image, self.color, (self.border_width, self.border_width, self.width-(self.border_width*2), self.height-(self.border_width*2)))
-        else:
-            self.image.fill(self.color)
-        if len(self.text) > 0:
-            self.show_text()
-        self.surface.blit(self.image, self.pos)
+                self.image.fill(self.color)
+            if len(self.text) > 0:
+                self.show_text()
+            self.surface.blit(self.image, self.pos)
     
     def click(self):
         if self.function != 0 and self.hovered:
@@ -60,8 +70,11 @@ class Button:
         self.image.blit(text, pos)
 
     def mouse_hovering(self, pos):
-        if pos[0] > self.pos[0] and pos[0] < self.pos[0] + self.width:
-            if pos[1] > self.pos[1] and pos[1] < self.pos[1] + self.height:
-                return True
+        if self.showing:
+            if pos[0] > self.pos[0] and pos[0] < self.pos[0] + self.width:
+                if pos[1] > self.pos[1] and pos[1] < self.pos[1] + self.height:
+                    return True
+            else:
+                return False
         else:
             return False

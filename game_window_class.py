@@ -29,3 +29,6 @@ class Game_window:
             for cell in row:
                 cell.draw()
         self.screen.blit(self.image, (self.pos.x, self.pos.y))
+
+    def reset_grid(self):
+        self.grid = [[Cell(self.image, x, y) for x in range(self.cols)] for y in range(self.rows)]
