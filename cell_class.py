@@ -1,5 +1,5 @@
 import pygame
-
+import random
 class Cell:
     def __init__(self, surface, grid_x, grid_y):
         self.alive = False
