@@ -113,12 +113,13 @@ def make_buttons():
     buttons.append(Button(window, width//2-50, 50, 100, 30, text='Pause', color=(20,20,200), hover_color=(20,140,10), bold_text=True, function=pause_game, state='running' ))
     buttons.append(Button(window, width//4-50, 50, 100, 30, text='Reset', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=reset_grid, state='paused' ))
     buttons.append(Button(window, width//1.25-50, 50, 100, 30, text='Resume', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=run_game, state='paused' ))
-    buttons.append(Button(window, width//5-50, 50, 100, 30 text='Info' color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=about_game))
+    buttons.append(Button(window, width//5-50, 50, 100, 30, text='Info', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=about_game))
 
     return buttons
 
 def about_game():
-    url=""
+    url="https://github.com/JustinTrombley96/Conways-Game-Of-Life-PyGame/blob/master/README.md"
+    webbrowser.open(url)
 
 def run_game():
     global state 
