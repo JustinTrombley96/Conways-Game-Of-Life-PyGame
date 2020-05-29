@@ -15,13 +15,14 @@ def get_events():
 def update():
     game_window.update()
 def draw():
-    game_window.draw()
     window.fill(background)
+    game_window.draw()
+    
 
 pygame.init()
 window = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
-game_window = Game_window(window, x, y)
+game_window = Game_window(window, 100, 150)
 
 running = True
 while running:
