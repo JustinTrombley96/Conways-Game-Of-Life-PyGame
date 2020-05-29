@@ -6,7 +6,7 @@ class Game_window:
     def __init__(self, screen, x, y):
         self.screen = screen
         self.pos = vec(x,y)
-        self.width, self.height = 800, 800
+        self.width, self.height = 600, 600
         self.image = pygame.Surface((self.width, self.height))
         self.rect = self.image.get_rect()
         self.rows = 40
@@ -15,7 +15,7 @@ class Game_window:
         for row in self.grid:
             for cell in row:
                 cell.get_neighbors(self.grid)
-                
+
     def update(self):
         self.rect.topleft = self.pos
         for row in self.grid:
