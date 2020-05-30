@@ -113,7 +113,7 @@ def make_buttons():
     buttons.append(Button(window, width//2-50, 50, 100, 30, text='Pause', color=(20,20,200), hover_color=(20,140,10), bold_text=True, function=pause_game, state='running' ))
     buttons.append(Button(window, width//4-50, 50, 100, 30, text='Reset', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=reset_grid, state='paused' ))
     buttons.append(Button(window, width//1.25-50, 50, 100, 30, text='Resume', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=run_game, state='paused' ))
-    buttons.append(Button(window, width//5-50, 50, 100, 30, text='Info', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=about_game))
+    buttons.append(Button(window, width//5-50, 100, 100, 30, text='Info', color=(255,50,100), hover_color=(20,140,10), bold_text=True, function=about_game))
 
     return buttons
 
@@ -124,6 +124,9 @@ def about_game():
 def run_game():
     global state 
     state = 'running'
+    FPS = 60
+    print(FPS)
+    return FPS
 
 def random_game():
     global state
@@ -143,13 +146,16 @@ def reset_grid():
     pygame.mixer.music.load('victory_fanfare.mp3')
     pygame.mixer.music.play(0)  
 
+
 pygame.init()
+pygame.font.init()
 window = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 game_window = Game_window(window, 100, 180)
 buttons = make_buttons()
 state = 'setting'
 frame_count = 0
+
 
 running = True
 while running:
@@ -169,5 +175,6 @@ while running:
         paused_draw()
     pygame.display.update()
     clock.tick(FPS)
+
 pygame.quit()
 sys.exit()
